@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <data>
+
+    <variable
+        name="note"
+        type="com.ricoharena.curs13localstorage.view.model.NoteModel"/>
+
+  </data>
+
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="8dp">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/main_note_title_hint"
+        android:textStyle="bold"
+        android:lines="1"
+        android:text="@{note.title}"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/main_note_content_hint"
+        android:minLines="1"
+        android:text="@{note.content}"/>
+
+  </LinearLayout>
+</layout>

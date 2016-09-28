@@ -19,12 +19,14 @@ public class FileHelper {
 
   public static final String FILENAME = "notes_file";
 
-  private void readItems(Context context) {
+  public ArrayList<NoteModel> readItems(Context context) {
+    ArrayList<NoteModel> notes = new ArrayList<>();
+
     try {
       FileInputStream fis = context.openFileInput(FILENAME);
       ObjectInputStream ois = new ObjectInputStream(fis);
 
-      ArrayList<NoteModel> clubs = (ArrayList<NoteModel>) ois.readObject();
+      notes = (ArrayList<NoteModel>) ois.readObject();
 
       ois.close();
     }
@@ -38,9 +40,10 @@ public class FileHelper {
       e.printStackTrace();
     }
 
+    return notes;
   }
 
-  private void writeItems(Context context, ArrayList<NoteModel> notes) {
+  public void writeItems(Context context, ArrayList<NoteModel> notes) {
     try {
       FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
       ObjectOutputStream oos = new ObjectOutputStream(fos);

@@ -4,13 +4,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import com.ricoharena.curs13localstorage.R;
 import com.ricoharena.curs13localstorage.presenter.MainPresenter;
+import com.ricoharena.curs13localstorage.view.adapters.NotesAdapter;
+import com.ricoharena.curs13localstorage.view.model.NoteModel;
 import com.ricoharena.curs13localstorage.view.proxy.MainProxyView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainProxyView {
 
@@ -53,8 +58,12 @@ public class MainActivity extends AppCompatActivity implements MainProxyView {
 
 
   @Override
-  public void initViews() {
+  public void initViews(List<NoteModel> notesList) {
+    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.notes_RecyclerView);
 
+    NotesAdapter adapter = new NotesAdapter(notesList, this);
+
+    recyclerView.setAdapter(adapter);
   }
 
   @Override
