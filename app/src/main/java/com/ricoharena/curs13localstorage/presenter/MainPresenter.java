@@ -1,6 +1,6 @@
 package com.ricoharena.curs13localstorage.presenter;
 
-import com.ricoharena.curs13localstorage.view.helper.FileHelper;
+import com.ricoharena.curs13localstorage.helper.FileHelper;
 import com.ricoharena.curs13localstorage.view.proxy.MainProxyView;
 
 /**
