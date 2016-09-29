@@ -1,11 +1,11 @@
-package com.ricoharena.curs13localstorage.view.adapters;
+package com.fasttrackit.curs13localstorage.view.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import com.ricoharena.curs13localstorage.databinding.NoteLayoutBinding;
-import com.ricoharena.curs13localstorage.view.model.NoteModel;
+import com.fasttrackit.curs13localstorage.databinding.NoteLayoutBinding;
+import com.fasttrackit.curs13localstorage.view.model.NoteModel;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
   @Override
   public NotesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    NoteLayoutBinding layoutBinding = NoteLayoutBinding.inflate(inflater);
+    NoteLayoutBinding layoutBinding = NoteLayoutBinding.inflate(inflater, parent, false);
 
     return new NotesViewHolder(layoutBinding);
   }
@@ -40,6 +40,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
   @Override
   public int getItemCount() {
     return notesList.size();
+  }
+
+  public void addNewNote() {
+    NoteModel note = new NoteModel();
+
+    notesList.add(note);
+
+    //TODO: note that recycler view has alot of methods to optimize showing list updates, listViews only have notifyDataSetChanged
+    notifyItemInserted(notesList.size() - 1);
   }
 
   public static class NotesViewHolder extends RecyclerView.ViewHolder {

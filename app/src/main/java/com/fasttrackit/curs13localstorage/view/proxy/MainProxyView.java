@@ -1,7 +1,7 @@
-package com.ricoharena.curs13localstorage.view.proxy;
+package com.fasttrackit.curs13localstorage.view.proxy;
 
 import android.content.Context;
-import com.ricoharena.curs13localstorage.view.model.NoteModel;
+import com.fasttrackit.curs13localstorage.view.model.NoteModel;
 
 import java.util.List;
 
@@ -12,6 +12,8 @@ import java.util.List;
 public interface MainProxyView {
 
   void initViews(List<NoteModel> notesList);
+
+  void addNewNote();
 
   Context getContext();
 

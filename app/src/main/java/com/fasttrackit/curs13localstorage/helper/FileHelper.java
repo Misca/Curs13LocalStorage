@@ -1,7 +1,7 @@
-package com.ricoharena.curs13localstorage.helper;
+package com.fasttrackit.curs13localstorage.helper;
 
 import android.content.Context;
-import com.ricoharena.curs13localstorage.view.model.NoteModel;
+import com.fasttrackit.curs13localstorage.view.model.NoteModel;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,6 +19,8 @@ public class FileHelper {
 
   public static final String FILENAME = "notes_file";
 
+  //TODO replace file handling with AsyncTasks
+  // check this answer: http://stackoverflow.com/questions/20067730/how-to-save-a-file-using-a-background-thread-in-android
   public ArrayList<NoteModel> readItems(Context context) {
     ArrayList<NoteModel> notes = new ArrayList<>();
 
@@ -29,6 +31,10 @@ public class FileHelper {
       notes = (ArrayList<NoteModel>) ois.readObject();
 
       ois.close();
+
+      for (NoteModel model : notes) {
+        model.initTextWatchers();
+      }
     }
     catch (FileNotFoundException e) {
       e.printStackTrace();

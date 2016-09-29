@@ -1,19 +1,21 @@
-package com.ricoharena.curs13localstorage.view.activity;
+package com.fasttrackit.curs13localstorage.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import com.ricoharena.curs13localstorage.R;
-import com.ricoharena.curs13localstorage.presenter.MainPresenter;
-import com.ricoharena.curs13localstorage.view.adapters.NotesAdapter;
-import com.ricoharena.curs13localstorage.view.model.NoteModel;
-import com.ricoharena.curs13localstorage.view.proxy.MainProxyView;
+import com.fasttrackit.curs13localstorage.R;
+import com.fasttrackit.curs13localstorage.presenter.MainPresenter;
+import com.fasttrackit.curs13localstorage.view.adapters.NotesAdapter;
+import com.fasttrackit.curs13localstorage.view.adapters.RecyclerItemDecoration;
+import com.fasttrackit.curs13localstorage.view.model.NoteModel;
+import com.fasttrackit.curs13localstorage.view.proxy.MainProxyView;
 
 import java.util.List;
 
@@ -50,6 +52,13 @@ public class MainActivity extends AppCompatActivity implements MainProxyView {
     presenter.onViewDestroyed();
   }
 
+  @Override
+  protected void onPause() {
+    super.onPause();
+
+    presenter.onPause(this);
+  }
+
   // ====== init ===============
 
   private void initMembers() {
@@ -63,7 +72,22 @@ public class MainActivity extends AppCompatActivity implements MainProxyView {
 
     NotesAdapter adapter = new NotesAdapter(notesList, this);
 
+    //TODO: check this out, recyclerView also needs layout manager
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    //TODO: added this custom class to have space between elements in the list
+    recyclerView.addItemDecoration(new RecyclerItemDecoration(this));
     recyclerView.setAdapter(adapter);
+  }
+
+  @Override
+  public void addNewNote() {
+    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.notes_RecyclerView);
+
+    //TODO: check how we got the adapter back from the list
+    //second approach we also could've kept the adapter as a member...
+    NotesAdapter adapter = (NotesAdapter) recyclerView.getAdapter();
+    //now the adapter is responsable of adding a note
+    adapter.addNewNote();
   }
 
   @Override

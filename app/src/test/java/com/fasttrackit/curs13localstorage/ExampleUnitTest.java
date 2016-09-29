@@ -1,4 +1,4 @@
-package com.ricoharena.curs13localstorage;
+package com.fasttrackit.curs13localstorage;
 
 import org.junit.Test;
 

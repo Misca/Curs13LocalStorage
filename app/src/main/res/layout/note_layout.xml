@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <data>
 
     <variable
         name="note"
-        type="com.ricoharena.curs13localstorage.view.model.NoteModel"/>
+        type="com.fasttrackit.curs13localstorage.view.model.NoteModel"/>
 
   </data>
 
   <LinearLayout
       android:orientation="vertical"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_margin="8dp">
+      android:layout_height="wrap_content"
+      android:background="@android:color/white"
+      android:padding="8dp"
+      android:elevation="8dp">
 
 
     <EditText
@@ -23,14 +26,17 @@
         android:hint="@string/main_note_title_hint"
         android:textStyle="bold"
         android:lines="1"
-        android:text="@{note.title}"/>
+        android:text="@{note.title}"
+        app:checkedListener="@{note.textWatcherTitle}"
+        />
 
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/main_note_content_hint"
-        android:minLines="1"
+        android:minLines="3"
+        app:checkedListener="@{note.textWatcherContent}"
         android:text="@{note.content}"/>
 
   </LinearLayout>
