@@ -1,6 +1,7 @@
 package com.fasttrackit.curs13localstorage.helper;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import com.fasttrackit.curs13localstorage.view.model.NoteModel;
 
 import java.io.FileInputStream;
@@ -49,21 +50,49 @@ public class FileHelper {
     return notes;
   }
 
-  public void writeItems(Context context, ArrayList<NoteModel> notes) {
-    try {
-      FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
-      ObjectOutputStream oos = new ObjectOutputStream(fos);
+  public void writeItems(final Context context, final ArrayList<NoteModel> notes, final OnFileActionListener listener) {
 
-      oos.writeObject(notes);
+    new AsyncTask<ArrayList, Void, Boolean>() {
 
-      oos.close();
-    }
-    catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-    catch (IOException e) {
-      e.printStackTrace();
-    }
+      @Override
+      protected Boolean doInBackground(ArrayList... arrayLists) {
+        try {
+          FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+          ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+          oos.writeObject(notes);
+
+          oos.close();
+          
+          return true;
+        }
+        catch (FileNotFoundException e) {
+          e.printStackTrace();
+          return false;
+        }
+        catch (IOException e) {
+          e.printStackTrace();
+          return false;
+        }
+      }
+
+      @Override
+      protected void onPostExecute(Boolean aBoolean) {
+        super.onPostExecute(aBoolean);
+
+        listener.onRetrievedNotesFromFile(aBoolean);
+      }
+    };
+
+  }
+
+
+  public interface OnFileActionListener {
+
+    void onSavedNotesToFile(Boolean isSuccessful);
+
+    void onRetrievedNotesFromFile(Boolean isSuccessful);
+
   }
 
 }

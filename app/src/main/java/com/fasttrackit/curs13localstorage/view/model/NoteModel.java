@@ -15,10 +15,10 @@ public class NoteModel implements Serializable {
 
   public String content = "";
 
-  //TODO: keep in mind that the transient keyword meand that this field will not be serialized
+  //TODO: keep in mind that the transient keyword means that this field will not be serialized
   public transient TextWatcher textWatcherTitle;
 
-  //TODO: keep in mind that the transient keyword meand that this field will not be serialized
+  //TODO: keep in mind that the transient keyword means that this field will not be serialized
   public transient TextWatcher textWatcherContent;
 
   public NoteModel() {
